@@ -1,0 +1,175 @@
+services:
+  postgres-auth:
+    image: postgres:16
+    container_name: postgres-auth
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: auth_db
+      POSTGRES_USER: auth_user
+      POSTGRES_PASSWORD: auth_password
+    ports:
+      - "5433:5432"
+    volumes:
+      - postgres_auth_data:/var/lib/postgresql/data
+    networks:
+      - gameachievements-network
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U auth_user -d auth_db"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  postgres-results:
+    image: postgres:16
+    container_name: postgres-results
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: results_db
+      POSTGRES_USER: results_user
+      POSTGRES_PASSWORD: results_password
+    ports:
+      - "5434:5432"
+    volumes:
+      - postgres_results_data:/var/lib/postgresql/data
+    networks:
+      - gameachievements-network
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U results_user -d results_db"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  postgres-achievements:
+    image: postgres:16
+    container_name: postgres-achievements
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: achievements_db
+      POSTGRES_USER: achievements_user
+      POSTGRES_PASSWORD: achievements_password
+    ports:
+      - "5435:5432"
+    volumes:
+      - postgres_achievements_data:/var/lib/postgresql/data
+    networks:
+      - gameachievements-network
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U achievements_user -d achievements_db"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  rabbitmq:
+    image: rabbitmq:3-management
+    container_name: rabbitmq
+    restart: unless-stopped
+    environment:
+      RABBITMQ_DEFAULT_USER: rabbit_user
+      RABBITMQ_DEFAULT_PASS: rabbit_password
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    volumes:
+      - rabbitmq_data:/var/lib/rabbitmq
+    networks:
+      - gameachievements-network
+    healthcheck:
+      test: ["CMD", "rabbitmq-diagnostics", "check_port_connectivity"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  auth-service:
+    build:
+      context: .
+      dockerfile: AuthService/Dockerfile
+    container_name: auth-service
+    restart: unless-stopped
+    environment:
+      ASPNETCORE_ENVIRONMENT: Development
+      ConnectionStrings__AuthDb: Host=postgres-auth;Port=5432;Database=auth_db;Username=auth_user;Password=auth_password
+    depends_on:
+      postgres-auth:
+        condition: service_healthy
+    ports:
+      - "8081:8080"
+    networks:
+      - gameachievements-network
+
+  results-service:
+    build:
+      context: .
+      dockerfile: ResultsService/Dockerfile
+    container_name: results-service
+    restart: unless-stopped
+    environment:
+      ASPNETCORE_ENVIRONMENT: Development
+      ConnectionStrings__ResultsDb: Host=postgres-results;Port=5432;Database=results_db;Username=results_user;Password=results_password
+      AuthService__BaseUrl: http://auth-service:8080/
+      RabbitMq__Host: rabbitmq
+      RabbitMq__Port: 5672
+      RabbitMq__VirtualHost: /
+      RabbitMq__Username: rabbit_user
+      RabbitMq__Password: rabbit_password
+    depends_on:
+      postgres-results:
+        condition: service_healthy
+      rabbitmq:
+        condition: service_healthy
+    ports:
+      - "8082:8080"
+    networks:
+      - gameachievements-network
+
+  achievements-service:
+    build:
+      context: .
+      dockerfile: AchievementsService/Dockerfile
+    container_name: achievements-service
+    restart: unless-stopped
+    environment:
+      ASPNETCORE_ENVIRONMENT: Development
+      ConnectionStrings__AchievementsDb: Host=postgres-achievements;Port=5432;Database=achievements_db;Username=achievements_user;Password=achievements_password
+      RabbitMq__Host: rabbitmq
+      RabbitMq__Port: 5672
+      RabbitMq__VirtualHost: /
+      RabbitMq__Username: rabbit_user
+      RabbitMq__Password: rabbit_password
+    depends_on:
+      postgres-achievements:
+        condition: service_healthy
+      rabbitmq:
+        condition: service_healthy
+    ports:
+      - "8083:8080"
+    networks:
+      - gameachievements-network
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+      args:
+        VITE_AUTH_API: http://localhost:8081
+        VITE_RESULTS_API: http://localhost:8082
+        VITE_ACH_API: http://localhost:8083
+    container_name: frontend
+    restart: unless-stopped
+    depends_on:
+      - auth-service
+      - results-service
+      - achievements-service
+    ports:
+      - "5173:80"
+    networks:
+      - gameachievements-network
+
+networks:
+  gameachievements-network:
+    driver: bridge
+
+volumes:
+  postgres_auth_data:
+  postgres_results_data:
+  postgres_achievements_data:
+  rabbitmq_data:

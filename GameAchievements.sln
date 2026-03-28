@@ -1,0 +1,147 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+#
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AuthService", "AuthService\AuthService.csproj", "{B6AE7804-29A8-457A-89B8-D58FA3035489}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ResultsService", "ResultsService\ResultsService.csproj", "{CCD56825-AAE8-4893-A756-D64415BED62E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AchievementsService", "AchievementsService\AchievementsService.csproj", "{60B0A8EF-5B24-4478-B6D5-59D2828F5416}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shared.Contracts", "Shared.Contracts\Shared.Contracts.csproj", "{2B9A8E41-E6D1-4615-BF06-37C3EAA0323A}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{4E606BA8-2C3C-4AE0-AC37-EA15377D233F}"
+	ProjectSection(SolutionItems) = preProject
+		docker-compose.yml = docker-compose.yml
+		frontend\.gitignore = frontend\.gitignore
+		frontend\eslint.config.js = frontend\eslint.config.js
+		frontend\index.html = frontend\index.html
+		frontend\node_modules\.bin\acorn = frontend\node_modules\.bin\acorn
+		frontend\node_modules\.bin\acorn.cmd = frontend\node_modules\.bin\acorn.cmd
+		frontend\node_modules\.bin\acorn.ps1 = frontend\node_modules\.bin\acorn.ps1
+		frontend\node_modules\.bin\baseline-browser-mapping = frontend\node_modules\.bin\baseline-browser-mapping
+		frontend\node_modules\.bin\baseline-browser-mapping.cmd = frontend\node_modules\.bin\baseline-browser-mapping.cmd
+		frontend\node_modules\.bin\baseline-browser-mapping.ps1 = frontend\node_modules\.bin\baseline-browser-mapping.ps1
+		frontend\node_modules\.bin\browserslist = frontend\node_modules\.bin\browserslist
+		frontend\node_modules\.bin\browserslist.cmd = frontend\node_modules\.bin\browserslist.cmd
+		frontend\node_modules\.bin\browserslist.ps1 = frontend\node_modules\.bin\browserslist.ps1
+		frontend\node_modules\.bin\esbuild = frontend\node_modules\.bin\esbuild
+		frontend\node_modules\.bin\esbuild.cmd = frontend\node_modules\.bin\esbuild.cmd
+		frontend\node_modules\.bin\esbuild.ps1 = frontend\node_modules\.bin\esbuild.ps1
+		frontend\node_modules\.bin\eslint = frontend\node_modules\.bin\eslint
+		frontend\node_modules\.bin\eslint.cmd = frontend\node_modules\.bin\eslint.cmd
+		frontend\node_modules\.bin\eslint.ps1 = frontend\node_modules\.bin\eslint.ps1
+		frontend\node_modules\.bin\js-yaml = frontend\node_modules\.bin\js-yaml
+		frontend\node_modules\.bin\js-yaml.cmd = frontend\node_modules\.bin\js-yaml.cmd
+		frontend\node_modules\.bin\js-yaml.ps1 = frontend\node_modules\.bin\js-yaml.ps1
+		frontend\node_modules\.bin\jsesc = frontend\node_modules\.bin\jsesc
+		frontend\node_modules\.bin\jsesc.cmd = frontend\node_modules\.bin\jsesc.cmd
+		frontend\node_modules\.bin\jsesc.ps1 = frontend\node_modules\.bin\jsesc.ps1
+		frontend\node_modules\.bin\json5 = frontend\node_modules\.bin\json5
+		frontend\node_modules\.bin\json5.cmd = frontend\node_modules\.bin\json5.cmd
+		frontend\node_modules\.bin\json5.ps1 = frontend\node_modules\.bin\json5.ps1
+		frontend\node_modules\.bin\nanoid = frontend\node_modules\.bin\nanoid
+		frontend\node_modules\.bin\nanoid.cmd = frontend\node_modules\.bin\nanoid.cmd
+		frontend\node_modules\.bin\nanoid.ps1 = frontend\node_modules\.bin\nanoid.ps1
+		frontend\node_modules\.bin\node-which = frontend\node_modules\.bin\node-which
+		frontend\node_modules\.bin\node-which.cmd = frontend\node_modules\.bin\node-which.cmd
+		frontend\node_modules\.bin\node-which.ps1 = frontend\node_modules\.bin\node-which.ps1
+		frontend\node_modules\.bin\parser = frontend\node_modules\.bin\parser
+		frontend\node_modules\.bin\parser.cmd = frontend\node_modules\.bin\parser.cmd
+		frontend\node_modules\.bin\parser.ps1 = frontend\node_modules\.bin\parser.ps1
+		frontend\node_modules\.bin\rollup = frontend\node_modules\.bin\rollup
+		frontend\node_modules\.bin\rollup.cmd = frontend\node_modules\.bin\rollup.cmd
+		frontend\node_modules\.bin\rollup.ps1 = frontend\node_modules\.bin\rollup.ps1
+		frontend\node_modules\.bin\semver = frontend\node_modules\.bin\semver
+		frontend\node_modules\.bin\semver.cmd = frontend\node_modules\.bin\semver.cmd
+		frontend\node_modules\.bin\semver.ps1 = frontend\node_modules\.bin\semver.ps1
+		frontend\node_modules\.bin\tsc = frontend\node_modules\.bin\tsc
+		frontend\node_modules\.bin\tsc.cmd = frontend\node_modules\.bin\tsc.cmd
+		frontend\node_modules\.bin\tsc.ps1 = frontend\node_modules\.bin\tsc.ps1
+		frontend\node_modules\.bin\tsserver = frontend\node_modules\.bin\tsserver
+		frontend\node_modules\.bin\tsserver.cmd = frontend\node_modules\.bin\tsserver.cmd
+		frontend\node_modules\.bin\tsserver.ps1 = frontend\node_modules\.bin\tsserver.ps1
+		frontend\node_modules\.bin\update-browserslist-db = frontend\node_modules\.bin\update-browserslist-db
+		frontend\node_modules\.bin\update-browserslist-db.cmd = frontend\node_modules\.bin\update-browserslist-db.cmd
+		frontend\node_modules\.bin\update-browserslist-db.ps1 = frontend\node_modules\.bin\update-browserslist-db.ps1
+		frontend\node_modules\.bin\vite = frontend\node_modules\.bin\vite
+		frontend\node_modules\.bin\vite.cmd = frontend\node_modules\.bin\vite.cmd
+		frontend\node_modules\.bin\vite.ps1 = frontend\node_modules\.bin\vite.ps1
+		frontend\node_modules\.package-lock.json = frontend\node_modules\.package-lock.json
+		frontend\node_modules\.vite\deps\chunk-AQ3CSJIS.js = frontend\node_modules\.vite\deps\chunk-AQ3CSJIS.js
+		frontend\node_modules\.vite\deps\chunk-AQ3CSJIS.js.map = frontend\node_modules\.vite\deps\chunk-AQ3CSJIS.js.map
+		frontend\node_modules\.vite\deps\chunk-BSNCPAQV.js = frontend\node_modules\.vite\deps\chunk-BSNCPAQV.js
+		frontend\node_modules\.vite\deps\chunk-BSNCPAQV.js.map = frontend\node_modules\.vite\deps\chunk-BSNCPAQV.js.map
+		frontend\node_modules\.vite\deps\package.json = frontend\node_modules\.vite\deps\package.json
+		frontend\node_modules\.vite\deps\react-dom.js = frontend\node_modules\.vite\deps\react-dom.js
+		frontend\node_modules\.vite\deps\react-dom.js.map = frontend\node_modules\.vite\deps\react-dom.js.map
+		frontend\node_modules\.vite\deps\react-dom_client.js = frontend\node_modules\.vite\deps\react-dom_client.js
+		frontend\node_modules\.vite\deps\react-dom_client.js.map = frontend\node_modules\.vite\deps\react-dom_client.js.map
+		frontend\node_modules\.vite\deps\react.js = frontend\node_modules\.vite\deps\react.js
+		frontend\node_modules\.vite\deps\react.js.map = frontend\node_modules\.vite\deps\react.js.map
+		frontend\node_modules\.vite\deps\react_jsx-dev-runtime.js = frontend\node_modules\.vite\deps\react_jsx-dev-runtime.js
+		frontend\node_modules\.vite\deps\react_jsx-dev-runtime.js.map = frontend\node_modules\.vite\deps\react_jsx-dev-runtime.js.map
+		frontend\node_modules\.vite\deps\react_jsx-runtime.js = frontend\node_modules\.vite\deps\react_jsx-runtime.js
+		frontend\node_modules\.vite\deps\react_jsx-runtime.js.map = frontend\node_modules\.vite\deps\react_jsx-runtime.js.map
+		frontend\node_modules\.vite\deps\_metadata.json = frontend\node_modules\.vite\deps\_metadata.json
+		frontend\node_modules\@babel\code-frame\lib\index.js = frontend\node_modules\@babel\code-frame\lib\index.js
+		frontend\node_modules\@babel\code-frame\lib\index.js.map = frontend\node_modules\@babel\code-frame\lib\index.js.map
+		frontend\node_modules\@babel\code-frame\LICENSE = frontend\node_modules\@babel\code-frame\LICENSE
+		frontend\node_modules\@babel\code-frame\package.json = frontend\node_modules\@babel\code-frame\package.json
+		frontend\node_modules\@babel\code-frame\README.md = frontend\node_modules\@babel\code-frame\README.md
+		frontend\node_modules\@babel\compat-data\corejs2-built-ins.js = frontend\node_modules\@babel\compat-data\corejs2-built-ins.js
+		frontend\node_modules\@babel\compat-data\corejs3-shipped-proposals.js = frontend\node_modules\@babel\compat-data\corejs3-shipped-proposals.js
+		frontend\node_modules\@babel\compat-data\data\corejs2-built-ins.json = frontend\node_modules\@babel\compat-data\data\corejs2-built-ins.json
+		frontend\node_modules\@babel\compat-data\data\corejs3-shipped-proposals.json = frontend\node_modules\@babel\compat-data\data\corejs3-shipped-proposals.json
+		frontend\node_modules\@babel\compat-data\data\native-modules.json = frontend\node_modules\@babel\compat-data\data\native-modules.json
+		frontend\node_modules\@babel\compat-data\data\overlapping-plugins.json = frontend\node_modules\@babel\compat-data\data\overlapping-plugins.json
+		frontend\node_modules\@babel\compat-data\data\plugin-bugfixes.json = frontend\node_modules\@babel\compat-data\data\plugin-bugfixes.json
+		frontend\node_modules\@babel\compat-data\data\plugins.json = frontend\node_modules\@babel\compat-data\data\plugins.json
+		frontend\node_modules\@babel\compat-data\LICENSE = frontend\node_modules\@babel\compat-data\LICENSE
+		frontend\node_modules\@babel\compat-data\native-modules.js = frontend\node_modules\@babel\compat-data\native-modules.js
+		frontend\node_modules\@babel\compat-data\overlapping-plugins.js = frontend\node_modules\@babel\compat-data\overlapping-plugins.js
+		frontend\node_modules\@babel\compat-data\package.json = frontend\node_modules\@babel\compat-data\package.json
+		frontend\node_modules\@babel\compat-data\plugin-bugfixes.js = frontend\node_modules\@babel\compat-data\plugin-bugfixes.js
+		frontend\node_modules\@babel\compat-data\plugins.js = frontend\node_modules\@babel\compat-data\plugins.js
+		frontend\node_modules\@babel\compat-data\README.md = frontend\node_modules\@babel\compat-data\README.md
+		frontend\node_modules\@babel\core\lib\config\cache-contexts.js = frontend\node_modules\@babel\core\lib\config\cache-contexts.js
+		frontend\node_modules\@babel\core\lib\config\cache-contexts.js.map = frontend\node_modules\@babel\core\lib\config\cache-contexts.js.map
+		frontend\node_modules\@babel\core\lib\config\caching.js = frontend\node_modules\@babel\core\lib\config\caching.js
+		frontend\node_modules\@babel\core\lib\config\caching.js.map = frontend\node_modules\@babel\core\lib\config\caching.js.map
+		frontend\node_modules\@babel\core\lib\config\config-chain.js = frontend\node_modules\@babel\core\lib\config\config-chain.js
+		frontend\node_modules\@babel\core\lib\config\config-chain.js.map = frontend\node_modules\@babel\core\lib\config\config-chain.js.map
+		frontend\node_modules\@babel\core\lib\config\config-descriptors.js = frontend\node_modules\@babel\core\lib\config\config-descriptors.js
+		frontend\node_modules\@babel\core\lib\config\config-descriptors.js.map = frontend\node_modules\@babel\core\lib\config\config-descriptors.js.map
+		frontend\node_modules\@babel\core\lib\config\files\configuration.js = frontend\node_modules\@babel\core\lib\config\files\configuration.js
+		frontend\node_modules\@babel\core\lib\config\files\configuration.js.map = frontend\node_modules\@babel\core\lib\config\files\configuration.js.map
+		frontend\node_modules\@babel\core\lib\config\files\import.cjs = frontend\node_modules\@babel\core\lib\config\files\import.cjs
+		frontend\node_modules\@babel\core\lib\config\files\import.cjs.map = frontend\node_modules\@babel\core\lib\config\files\import.cjs.map
+		frontend\node_modules\@babel\core\lib\config\files\index-browser.js = frontend\node_modules\@babel\core\lib\config\files\index-browser.js
+		frontend\node_modules\@babel\core\lib\config\files\index-browser.js.map = frontend\node_modules\@babel\core\lib\config\files\index-browser.js.map
+		frontend\node_modules\@babel\core\lib\config\files\index.js = frontend\node_modules\@babel\core\lib\config\files\index.js
+		frontend\node_modules\@babel\core\lib\config\files\index.js.map = frontend\node_modules\@babel\core\lib\config\files\index.js.map
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{B6AE7804-29A8-457A-89B8-D58FA3035489}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B6AE7804-29A8-457A-89B8-D58FA3035489}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B6AE7804-29A8-457A-89B8-D58FA3035489}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B6AE7804-29A8-457A-89B8-D58FA3035489}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CCD56825-AAE8-4893-A756-D64415BED62E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CCD56825-AAE8-4893-A756-D64415BED62E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CCD56825-AAE8-4893-A756-D64415BED62E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CCD56825-AAE8-4893-A756-D64415BED62E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{60B0A8EF-5B24-4478-B6D5-59D2828F5416}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{60B0A8EF-5B24-4478-B6D5-59D2828F5416}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{60B0A8EF-5B24-4478-B6D5-59D2828F5416}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{60B0A8EF-5B24-4478-B6D5-59D2828F5416}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2B9A8E41-E6D1-4615-BF06-37C3EAA0323A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2B9A8E41-E6D1-4615-BF06-37C3EAA0323A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2B9A8E41-E6D1-4615-BF06-37C3EAA0323A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2B9A8E41-E6D1-4615-BF06-37C3EAA0323A}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
