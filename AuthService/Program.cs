@@ -46,6 +46,10 @@ var authConnection = builder.Configuration.GetConnectionString("AuthDb")
                      ?? throw new InvalidOperationException("Connection string 'AuthDb' is missing.");
 builder.Services.AddDbContext<AuthDbContext>(options => options.UseNpgsql(authConnection));
 
+var internalApi = builder.Configuration.GetSection("InternalApi").Get<InternalApiOptions>()
+                  ?? throw new InvalidOperationException("InternalApi settings are missing.");
+builder.Services.AddSingleton(internalApi);
+
 var jwt = builder.Configuration.GetSection("Jwt").Get<JwtOptions>() ?? throw new InvalidOperationException("Jwt settings are missing.");
 var signingKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwt.SigningKey));
 

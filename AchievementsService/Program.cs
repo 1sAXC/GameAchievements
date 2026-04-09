@@ -68,6 +68,7 @@ builder.Services.AddMassTransit(cfg =>
         });
 
         rabbitCfg.Message<ResultRecorded>(messageCfg => messageCfg.SetEntityName("results.recorded"));
+        rabbitCfg.Message<AchievementAwarded>(messageCfg => messageCfg.SetEntityName("achievements.awarded"));
 
         rabbitCfg.ReceiveEndpoint("achievements.result-recorded", endpointCfg =>
         {

@@ -59,6 +59,26 @@ services:
       timeout: 5s
       retries: 5
 
+  postgres-notifications:
+    image: postgres:16
+    container_name: postgres-notifications
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: notifications_db
+      POSTGRES_USER: notifications_user
+      POSTGRES_PASSWORD: notifications_password
+    ports:
+      - "5436:5432"
+    volumes:
+      - postgres_notifications_data:/var/lib/postgresql/data
+    networks:
+      - gameachievements-network
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U notifications_user -d notifications_db"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
   rabbitmq:
     image: rabbitmq:3-management
     container_name: rabbitmq
@@ -88,6 +108,8 @@ services:
     environment:
       ASPNETCORE_ENVIRONMENT: Development
       ConnectionStrings__AuthDb: Host=postgres-auth;Port=5432;Database=auth_db;Username=auth_user;Password=auth_password
+      InternalApi__ApiKey: notification-service-internal-key
+      InternalApi__HeaderName: X-Internal-Api-Key
     depends_on:
       postgres-auth:
         condition: service_healthy
@@ -145,6 +167,41 @@ services:
     networks:
       - gameachievements-network
 
+  notification-service:
+    build:
+      context: .
+      dockerfile: NotificationService/Dockerfile
+    container_name: notification-service
+    restart: unless-stopped
+    environment:
+      ASPNETCORE_ENVIRONMENT: Development
+      ConnectionStrings__NotificationsDb: Host=postgres-notifications;Port=5432;Database=notifications_db;Username=notifications_user;Password=notifications_password
+      AuthService__BaseUrl: http://auth-service:8080/
+      AuthService__InternalApiKey: notification-service-internal-key
+      AuthService__InternalApiKeyHeaderName: X-Internal-Api-Key
+      RabbitMq__Host: rabbitmq
+      RabbitMq__Port: 5672
+      RabbitMq__VirtualHost: /
+      RabbitMq__Username: rabbit_user
+      RabbitMq__Password: rabbit_password
+      Smtp__Host: smtp.example.com
+      Smtp__Port: 587
+      Smtp__Username: smtp-user
+      Smtp__Password: smtp-password
+      Smtp__FromEmail: noreply@example.com
+      Smtp__FromName: Game Achievements
+    depends_on:
+      postgres-notifications:
+        condition: service_healthy
+      rabbitmq:
+        condition: service_healthy
+      auth-service:
+        condition: service_started
+    ports:
+      - "8084:8080"
+    networks:
+      - gameachievements-network
+
   frontend:
     build:
       context: ./frontend
@@ -172,4 +229,5 @@ volumes:
   postgres_auth_data:
   postgres_results_data:
   postgres_achievements_data:
+  postgres_notifications_data:
   rabbitmq_data:

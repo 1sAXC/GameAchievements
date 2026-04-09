@@ -7,13 +7,17 @@ using Shared.Contracts;
 
 namespace AchievementsService.Consumers;
 
-public sealed class ResultRecordedConsumer(AchievementsDbContext dbContext, ILogger<ResultRecordedConsumer> logger) : IConsumer<ResultRecorded>
+public sealed class ResultRecordedConsumer(
+    AchievementsDbContext dbContext,
+    IPublishEndpoint publishEndpoint,
+    ILogger<ResultRecordedConsumer> logger) : IConsumer<ResultRecorded>
 {
     public async Task Consume(ConsumeContext<ResultRecorded> context)
     {
         var result = context.Message;
         var now = DateTime.UtcNow;
         var cancellationToken = context.CancellationToken;
+        var publishedEvents = new List<AchievementAwarded>();
 
         await using var transaction = await dbContext.Database.BeginTransactionAsync(cancellationToken);
 
@@ -49,18 +53,43 @@ public sealed class ResultRecordedConsumer(AchievementsDbContext dbContext, ILog
 
         await dbContext.SaveChangesAsync(cancellationToken);
 
-        foreach (var achievementCode in ResolveAchievementCodes(result, userStats))
+        var achievementCodes = ResolveAchievementCodes(result, userStats);
+
+        var achievementDefinitions = await dbContext.Achievements
+            .Where(x => achievementCodes.Contains(x.Code))
+            .ToDictionaryAsync(x => x.Code, cancellationToken);
+
+        foreach (var achievementCode in achievementCodes)
         {
-            await dbContext.Database.ExecuteSqlInterpolatedAsync(
+            var eventId = Guid.NewGuid();
+            var insertedRows = await dbContext.Database.ExecuteSqlInterpolatedAsync(
                 $"""
                  INSERT INTO user_achievements (id, user_id, achievement_code, earned_at)
-                 VALUES ({Guid.NewGuid()}, {result.UserId}, {achievementCode}, {now})
+                 VALUES ({eventId}, {result.UserId}, {achievementCode}, {now})
                  ON CONFLICT (user_id, achievement_code) DO NOTHING
                  """,
                 cancellationToken);
+
+            if (insertedRows == 0 || !achievementDefinitions.TryGetValue(achievementCode, out var achievement))
+            {
+                continue;
+            }
+
+            publishedEvents.Add(new AchievementAwarded(
+                result.UserId,
+                eventId,
+                achievement.Code,
+                achievement.Name,
+                achievement.Description,
+                now));
         }
 
         await transaction.CommitAsync(cancellationToken);
+
+        foreach (var achievementAwarded in publishedEvents)
+        {
+            await publishEndpoint.Publish(achievementAwarded, cancellationToken);
+        }
     }
 
     private static IReadOnlyCollection<string> ResolveAchievementCodes(ResultRecorded result, UserStat userStats)
