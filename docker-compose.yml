@@ -184,12 +184,12 @@ services:
       RabbitMq__VirtualHost: /
       RabbitMq__Username: rabbit_user
       RabbitMq__Password: rabbit_password
-      Smtp__Host: smtp.example.com
+      Smtp__Host: smtp.yandex.ru
       Smtp__Port: 587
-      Smtp__Username: smtp-user
-      Smtp__Password: smtp-password
-      Smtp__FromEmail: noreply@example.com
-      Smtp__FromName: Game Achievements
+      Smtp__Username: 
+      Smtp__Password: 
+      Smtp__FromEmail: 
+      Smtp__FromName: 
     depends_on:
       postgres-notifications:
         condition: service_healthy
